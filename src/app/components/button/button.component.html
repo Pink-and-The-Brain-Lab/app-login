@@ -1,0 +1,5 @@
+<button [type]="type" (click)="onClick()">
+    <i *ngIf="leftIcon.length" [class]="leftIcon"></i>
+    {{ label }}
+    <i *ngIf="rightIcon.length" [class]="rightIcon"></i>
+</button>

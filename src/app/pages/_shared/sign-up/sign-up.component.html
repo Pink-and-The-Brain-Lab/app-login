@@ -1,0 +1,50 @@
+<div class="h-100 w-100 d-flex flex-column align-items-center justify-content-between p-3">
+    <div class="d-flex flex-column mt-4 content">
+        <h3 class="mb-0">{{ 'SIGN_UP_MILLEZ' | translate }}</h3>
+
+        <form [formGroup]="form" class="d-flex flex-column" (submit)="createAccount()">
+            <div class="row-form right-icon w-100">
+                <input type="email" cdkInputValidation formControlName="email" />
+                <label>{{ 'EMAIL' | translate }}</label>
+
+                <small *ngIf="email && email.touched && email.errors">
+                    <span *ngIf="email && email.errors['required']">{{ 'EMAIL_REQUIRED' | translate }}</span>
+                    <span *ngIf="email && email.errors['email']">{{ 'PROVIDE_VALID_EMAIL' | translate }}</span>
+                </small>
+            </div>
+            
+            <div class="row-form right-icon w-100">
+                <input type="text" cdkInputValidation formControlName="name" />
+                <label>{{ 'FULL_NAME' | translate }}</label>
+
+                <small *ngIf="name && name.touched && name.errors">
+                    <span *ngIf="name && name.errors['required']">{{ 'NAME_REQUIRED' | translate }}</span>
+                    <span *ngIf="name && name.errors['minlength']">{{ 'NAME_SHOULD_BE' | translate }}</span>
+                </small>
+            </div>
+            
+            <app-create-password (passwordValidation)="validatePassword($event)" (submitEvent)="createAccount()" (passwordEvent)="updatePassword($event)"></app-create-password>
+            <cdk-checkbox class="mt-4" label="{{ 'ALLOW_MILLEZ_TO_COMMUNICATE' | translate }}" (change)="comunicateNotifications = $event"></cdk-checkbox>
+            <cdk-checkbox class="mt-4" label="{{ 'RECEIVE_INFORMATION' | translate }}" [value]="recieveInformation" (change)="recieveInformation = $event"></cdk-checkbox>
+
+            <button
+                type="submit"
+                class="btn mt-4 btn-primary"
+                [cdkLoadingButton]="isLoading"
+                [disabled]="!isValidInformation"
+                #button
+            >
+                <cdk-spinner>{{ 'CONTINUE' | translate }}</cdk-spinner>
+            </button>
+        </form>
+
+        <p class="mt-4 text-center">
+            {{ 'CREATE_AN_ACCOUNT' | translate }} <br />
+            <a href="#" title="{{ 'USER_AGREEMENT_TERMS' | translate}}">{{ 'USER_AGREEMENT_TERMS' | translate}}</a>
+        </p>
+    </div>
+
+    <footer class="flex-grow-0 d-flex justify-content-center align-items-center p-4">
+        <p class="m-0">{{ 'ALREADY_HAVE_AN_ACCOUNT' | translate }} <app-button label="{{ 'LOGIN' | translate }}" (click)="login()"></app-button></p>
+    </footer>
+</div>

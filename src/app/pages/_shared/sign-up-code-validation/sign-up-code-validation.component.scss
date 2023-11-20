@@ -1,0 +1,44 @@
+@import "variables";
+@import "em";
+
+.content {
+    width: 100%;
+
+    @media (min-width: 768px) {
+        width: 365px;
+    }
+
+    h3 {
+        color: $emphasis-high;
+        font-size: to-em(30);
+        font-weight: 700;
+        margin-bottom: 12px;
+    }
+
+    strong {
+        color: $emphasis-medium;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 20px;
+    }
+
+    cdk-code-validation {
+        width: 278px;
+    }
+
+    p {
+        color: $emphasis-low;
+        font-size: to-em(14);
+    }
+
+    button {
+        text-decoration: none;
+        color: $st-blue;
+        background-color: transparent;
+        border: 0;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}

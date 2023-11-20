@@ -1,0 +1,14 @@
+<div class="h-100 w-100 d-flex flex-column align-items-center justify-content-between p-3">
+    <div class="d-flex flex-column mt-4 content text-center align-items-center">
+        <illustration-sign-up-code-validation class="d-none d-md-block"></illustration-sign-up-code-validation>
+        <h3 class="mt-4">{{ 'CHECK_YOUR_EMAIL' | translate }}</h3>
+        <strong>{{ 'WE_SENT_A_CODE_TO' | translate }} {{ email }}</strong>
+
+        <cdk-code-validation class="mt-5 mb-5" [isLoading]="isLoading" (validate)="validate($event)"></cdk-code-validation>
+
+        <p class="mt-4 text-center">
+            {{ 'DIDNT_RECIEVE_AN_EMAIL' | translate }}
+            <button type="button" (click)="generateNewToken()">{{ 'RESEND' | translate }}</button>
+        </p>
+    </div>
+</div>

@@ -1,0 +1,55 @@
+@import "variables";
+@import "em";
+
+h4 {
+    color: $emphasis-high;
+    font-size: to-em(20);
+    font-weight: 700;
+    line-height: to-em(28);
+}
+
+.qr-code {
+    border-right: 1px solid $support-8;
+
+    p {
+        max-width: 216px;
+        color: $emphasis-low;
+        font-size: to-em(14);
+        font-weight: 400;
+        line-height: to-em(20);
+        text-align: center;
+    }
+}
+
+.login {
+    width: 100%;
+    text-align: center;
+
+    @media (min-width: 768px) {
+        width: 365px;
+        text-align: left;
+    }
+
+    h3 {
+        color: $emphasis-high;
+        font-size: to-em(30);
+        font-weight: 700;
+        line-height: to-em(40);
+    }
+
+    strong {
+        color: $emphasis-medium;
+        font-size: to-em(14);
+        font-weight: 600;
+        line-height: to-em(20);
+    }
+}
+
+
+footer {
+    p {
+        color: $emphasis-low;
+        font-size: to-em(14);
+        font-weight: 600;
+    }
+}

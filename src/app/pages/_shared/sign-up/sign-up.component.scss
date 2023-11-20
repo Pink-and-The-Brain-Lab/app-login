@@ -1,0 +1,45 @@
+@import "variables";
+@import "em";
+
+.content {
+    width: 100%;
+
+    @media (min-width: 768px) {
+        width: 365px;
+    }
+    
+    h3 {
+        color: $emphasis-high;
+        text-align: center;
+        font-size: to-em(30);
+        font-weight: 700;
+        line-height: to-em(40);
+    }
+
+    p {
+        color: $emphasis-low;
+        font-size: to-em(14);
+    }
+    
+    i {
+        color: $emphasis-low;
+        cursor: pointer;
+    }
+
+    a {
+        text-decoration: none;
+        color: $st-blue;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+footer {
+    p {
+        color: $emphasis-low;
+        font-size: to-em(14);
+        font-weight: 600;
+    }
+}
