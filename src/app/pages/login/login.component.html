@@ -12,7 +12,7 @@
                 label=""
                 [options]="languageOptions"
                 [selectedOption]="selectedOption"
-                (valueChanges)="getSelectedLanguage($event)"
+                (valueChanges)="changeLanguage($event)"
             >
                 <ng-template #customTemplate let-item>
                     <span>{{ item?.label }}</span>
