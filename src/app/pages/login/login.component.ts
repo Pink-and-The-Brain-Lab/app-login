@@ -1,7 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { ILanguageOption, LocalStorageManager } from 'millez-components-lib/components';
-import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-login',

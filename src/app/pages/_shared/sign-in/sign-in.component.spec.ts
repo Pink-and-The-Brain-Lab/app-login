@@ -5,6 +5,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { InputValidationModule, LoadingButtonModule, SpinnerModule } from 'millez-components-lib/components';
 import { ButtonModule } from 'src/app/components/button/button.module';
 import { Router } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('SignInComponent', () => {
   let component: SignInComponent;
@@ -21,6 +22,7 @@ describe('SignInComponent', () => {
         LoadingButtonModule,
         SpinnerModule,
         NoopAnimationsModule,
+        TranslateModule.forRoot(),
       ]
     })
     .compileComponents();

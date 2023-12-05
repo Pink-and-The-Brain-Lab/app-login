@@ -13,6 +13,7 @@ import TOASTR_SERVICE_MOCK from 'src/app/mocks/toastr-service.test.mock';
 import HTTP_ERROR_RESPONSE from 'src/app/mocks/http-error-response.test.mock';
 import SUBSCRIBE_RETURN_MOCK from 'src/app/mocks/subscribe-method.test.mock';
 import { CreateNewPasswordIllustrationModule } from 'src/app/illustrations/create-new-password-illustration/create-new-password-illustration.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('CreateNewPasswordComponent', () => {
   let component: CreateNewPasswordComponent;
@@ -34,6 +35,7 @@ describe('CreateNewPasswordComponent', () => {
         LoadingButtonModule,
         SpinnerModule,
         CreatePasswordModule,
+        TranslateModule.forRoot(),
       ],
       providers: [
         { provide: ToastrService, useValue: TOASTR_SERVICE_MOCK },

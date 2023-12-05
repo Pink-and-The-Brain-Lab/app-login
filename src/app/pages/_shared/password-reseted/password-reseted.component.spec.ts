@@ -5,6 +5,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ToastrService } from 'ngx-toastr';
 import TOASTR_SERVICE_MOCK from 'src/app/mocks/toastr-service.test.mock';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('PasswordResetedComponent', () => {
   let component: PasswordResetedComponent;
@@ -16,6 +17,7 @@ describe('PasswordResetedComponent', () => {
       imports: [
         HttpClientTestingModule,
         RouterTestingModule,
+        TranslateModule.forRoot(),
       ],
       providers: [
         { provide: ToastrService, useValue: TOASTR_SERVICE_MOCK },
