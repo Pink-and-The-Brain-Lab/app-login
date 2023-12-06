@@ -15,7 +15,7 @@
                 (valueChanges)="changeLanguage($event)"
             >
                 <ng-template #customTemplate let-item>
-                    <span>{{ item?.label }}</span>
+                    <span>{{ item?.label | uppercase | translate }}</span>
                 </ng-template>
             </cdk-custom-select>
         </div>

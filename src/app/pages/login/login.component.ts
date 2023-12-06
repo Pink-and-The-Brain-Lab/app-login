@@ -1,24 +1,37 @@
-import { Component, OnInit } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { ILanguageOption, LocalStorageManager } from 'millez-components-lib/components';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   
   languageOptions: ILanguageOption[] = [];
   selectedOption: ILanguageOption | null = null;
+  private destroy$ = new Subject<boolean>();
 
   constructor(
     private translateService: TranslateService,
+    private translatePipe: TranslatePipe
   ) {}
 
   ngOnInit(): void {
     this.languageOptions = LocalStorageManager.get<ILanguageOption[]>('languageOptions') || [];
     this.getSelectedLanguage();
+    this.translateService.onLangChange
+      .pipe(
+        takeUntil(this.destroy$)
+      )
+      .subscribe(() => this.getSelectedLanguage());
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 
   private getSelectedLanguage() {
@@ -30,7 +43,7 @@ export class LoginComponent implements OnInit {
     }
 
     const index = this.languageOptions.findIndex(item => item.value === selectedLaguage);
-    const languageShouldBe = this.languageOptions[index];
+    const languageShouldBe = this.translateSelectedOption(this.languageOptions[index]);
     this.translateService.use(languageShouldBe.value);
     this.selectedOption = languageShouldBe;
   }
@@ -38,6 +51,14 @@ export class LoginComponent implements OnInit {
   changeLanguage(language: ILanguageOption) {
     this.translateService.use(language.value);
     LocalStorageManager.set<string>('selectedLaguage', language.value);
-    this.selectedOption = language;
+    this.selectedOption = language
+    this.selectedOption = this.translateSelectedOption(language);
+  }
+
+  private translateSelectedOption(option: ILanguageOption): ILanguageOption {
+    return {
+      value: option.value,
+      label: this.translatePipe.transform(option.label.toUpperCase())
+    };
   }
 }
