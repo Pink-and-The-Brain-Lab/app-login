@@ -5,19 +5,18 @@ import { Subject, takeUntil } from 'rxjs';
 import { CreateNewPasswordService } from './service/create-new-password.service';
 import { ToastrService } from 'ngx-toastr';
 import { IResetInterface } from './models/reset-password.interface';
-import { HttpErrorResponse } from '@angular/common/http';
-import { IHandleError } from 'src/app/commons/handle-error.interface';
+import { TranslatePipe } from '@ngx-translate/core';
+import { HandleError } from 'src/app/commons/handle-error/handle-error';
 
 @Component({
   selector: 'app-create-new-password',
   templateUrl: './create-new-password.component.html',
   styleUrls: ['./create-new-password.component.scss']
 })
-export class CreateNewPasswordComponent implements OnDestroy, IHandleError {
+export class CreateNewPasswordComponent extends HandleError implements OnDestroy {
 
   @ViewChild('button', { static: true }) resetButton: ElementRef = {} as ElementRef;
   private destroy$ = new Subject<boolean>();
-  isLoading = false;
   isPasswordValid = false;
   private password = '';
   private confirmPassword = '';
@@ -26,9 +25,11 @@ export class CreateNewPasswordComponent implements OnDestroy, IHandleError {
   constructor(
     private router: Router,
     private createNewPasswordService: CreateNewPasswordService,
-    private toast: ToastrService,
     private activatedRoute: ActivatedRoute,
+    protected toast: ToastrService,
+    protected translatePipe: TranslatePipe,
   ) {
+    super(toast, translatePipe);
     this.email = this.activatedRoute.snapshot.params['email'];
   }
 
@@ -58,13 +59,8 @@ export class CreateNewPasswordComponent implements OnDestroy, IHandleError {
           this.isLoading = false;
           this.router.navigate(['login/password-reseted'], { skipLocationChange: true, });
         },
-        error: _error => this.handleError(_error),
+        error: _error => super.handleError(_error),
       });
-  }
-
-  handleError(error: HttpErrorResponse) {
-    this.isLoading = false;
-    this.toast.error(error.error.message);
   }
 
   submit() {

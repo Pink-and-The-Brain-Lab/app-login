@@ -8,18 +8,17 @@ import { SignInPasswordService } from './service/sign-in-password.service';
 import { ISignin } from './models/sign-in.interface';
 import { LocalStorageManager } from 'millez-components-lib/components';
 import { IUser } from './models/user.interface';
-import { HttpErrorResponse } from '@angular/common/http';
-import { IHandleError } from 'src/app/commons/handle-error.interface';
+import { HandleError } from 'src/app/commons/handle-error/handle-error';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-sign-in-password',
   templateUrl: './sign-in-password.component.html',
   styleUrls: ['./sign-in-password.component.scss']
 })
-export class SignInPasswordComponent implements OnDestroy, IHandleError {
+export class SignInPasswordComponent extends HandleError implements OnDestroy {
 
   private destroy$ = new Subject<boolean>();
-  isLoading = false;
   inputType: InputType = 'password';
   email = '';
 
@@ -29,11 +28,13 @@ export class SignInPasswordComponent implements OnDestroy, IHandleError {
   });
 
   constructor(
-    private toast: ToastrService,
     private router: Router,
     private signInPasswordService: SignInPasswordService,
     private activatedRoute: ActivatedRoute,
+    protected toast: ToastrService,
+    protected translatePipe: TranslatePipe,
   ) {
+    super(toast, translatePipe);
     this.email = this.activatedRoute.snapshot.params['email'];
   }
 
@@ -70,13 +71,8 @@ export class SignInPasswordComponent implements OnDestroy, IHandleError {
           if (fromTest) return;
           window.location.replace('');
         },
-        error: _error => this.handleError(_error),
+        error: _error => super.handleError(_error),
       });
-  }
-
-  handleError(error: HttpErrorResponse) {
-    this.isLoading = false;
-    this.toast.error(error.error.message);
   }
 
   stayLoggedIn(value: boolean) {
