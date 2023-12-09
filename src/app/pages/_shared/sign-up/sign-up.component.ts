@@ -6,19 +6,18 @@ import { SignUpService } from './service/sign-up.service';
 import { ISignup } from './models/signup.interface';
 import { ToastrService } from 'ngx-toastr';
 import { IPasswordEvent } from 'millez-components-lib/components/lib/create-password/models/password-event';
-import { HttpErrorResponse } from '@angular/common/http';
-import { IHandleError } from 'src/app/commons/handle-error.interface';
+import { HandleError } from 'src/app/commons/handle-error/handle-error';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.scss']
 })
-export class SignUpComponent implements OnDestroy, IHandleError {
+export class SignUpComponent extends HandleError implements OnDestroy {
 
   @ViewChild('button', { static: true }) resetButton: ElementRef = {} as ElementRef;
   private destroy$ = new Subject<boolean>();
-  isLoading = false;
   isPasswordValid = false;
   private password = '';
   private confirmPassword = '';
@@ -33,8 +32,11 @@ export class SignUpComponent implements OnDestroy, IHandleError {
   constructor(
     private router: Router,
     private signUpService: SignUpService,
-    private toast: ToastrService,
-  ) {}
+    protected toast: ToastrService,
+    protected translatePipe: TranslatePipe,
+  ) {
+    super(toast, translatePipe);
+  }
 
   ngOnDestroy(): void {
     this.destroy$.next(true);
@@ -65,13 +67,8 @@ export class SignUpComponent implements OnDestroy, IHandleError {
           this.isLoading = false;
           this.router.navigate(['login/sign-up/code-validation', this.email?.value], { skipLocationChange: true, });
         },
-        error: _error => this.handleError(_error),
+        error: _error => super.handleError(_error),
       });
-  }
-
-  handleError(error: HttpErrorResponse) {
-    this.isLoading = false;
-    this.toast.error(error.error.message);
   }
 
   submit() {

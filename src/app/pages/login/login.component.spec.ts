@@ -30,7 +30,7 @@ describe('LoginComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LoginComponent, TranslatePipe ],
+      declarations: [ LoginComponent ],
       imports: [
         LogoModule,
         RouterModule,

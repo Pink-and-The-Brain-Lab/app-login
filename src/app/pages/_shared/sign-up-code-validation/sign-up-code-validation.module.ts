@@ -4,7 +4,7 @@ import { SignUpCodeValidationComponent } from './sign-up-code-validation.compone
 import { SignupCodeValidationRoutingModule } from './sign-up-code-validation-routing';
 import { SignUpCodeValidationIllustrationModule } from 'src/app/illustrations/sign-up-code-validation-illustration/sign-up-code-validation-illustration.module';
 import { CodeValidationModule } from 'millez-components-lib/components';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -16,6 +16,9 @@ import { TranslateModule } from '@ngx-translate/core';
     SignUpCodeValidationIllustrationModule,
     CodeValidationModule,
     TranslateModule.forChild(),
+  ],
+  providers: [
+    TranslatePipe,
   ]
 })
 export class SignUpCodeValidationModule { }

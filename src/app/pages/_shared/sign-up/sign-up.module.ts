@@ -5,7 +5,7 @@ import { SignupRoutingModule } from './sign-up-routing';
 import { ButtonModule } from 'src/app/components/button/button.module';
 import { CheckboxModule, CreatePasswordModule, InputValidationModule, LoadingButtonModule, SpinnerModule } from 'millez-components-lib/components';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -23,6 +23,9 @@ import { TranslateModule } from '@ngx-translate/core';
     CreatePasswordModule,
     CheckboxModule,
     TranslateModule.forChild(),
+  ],
+  providers: [
+    TranslatePipe,
   ]
 })
 export class SignUpModule { }

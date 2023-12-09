@@ -6,7 +6,7 @@ import { ButtonModule } from 'src/app/components/button/button.module';
 import { InputValidationModule, LoadingButtonModule, SpinnerModule } from 'millez-components-lib/components';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ResetPasswordIllustrationModule } from 'src/app/illustrations/reset-password-illustration/reset-password-illustration.module';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -23,6 +23,9 @@ import { TranslateModule } from '@ngx-translate/core';
     LoadingButtonModule,
     SpinnerModule,
     TranslateModule.forChild(),
+  ],
+  providers: [
+    TranslatePipe,
   ]
 })
 export class ResetPasswordModule { }

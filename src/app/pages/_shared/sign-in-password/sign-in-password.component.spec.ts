@@ -12,7 +12,7 @@ import { SignInPasswordService } from './service/sign-in-password.service';
 import TOASTR_SERVICE_MOCK from 'src/app/mocks/toastr-service.test.mock';
 import HTTP_ERROR_RESPONSE from 'src/app/mocks/http-error-response.test.mock';
 import SUBSCRIBE_RETURN_MOCK from 'src/app/mocks/subscribe-method.test.mock';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
 
 describe('SignInPasswordComponent', () => {
   let component: SignInPasswordComponent;
@@ -37,6 +37,7 @@ describe('SignInPasswordComponent', () => {
         TranslateModule.forRoot(),
       ],
       providers: [
+        TranslatePipe,
         { provide: ToastrService, useValue: TOASTR_SERVICE_MOCK },
         { provide: SignInPasswordService, useValue: spy },
       ]

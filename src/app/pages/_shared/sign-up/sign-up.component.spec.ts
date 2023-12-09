@@ -13,7 +13,7 @@ import { IPasswordEvent } from 'millez-components-lib/components/lib/create-pass
 import TOASTR_SERVICE_MOCK from 'src/app/mocks/toastr-service.test.mock';
 import HTTP_ERROR_RESPONSE from 'src/app/mocks/http-error-response.test.mock';
 import SUBSCRIBE_RETURN_MOCK from 'src/app/mocks/subscribe-method.test.mock';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
 
 describe('SignUpComponent', () => {
   let component: SignUpComponent;
@@ -39,6 +39,7 @@ describe('SignUpComponent', () => {
         TranslateModule.forRoot(),
       ],
       providers: [
+        TranslatePipe,
         { provide: ToastrService, useValue: TOASTR_SERVICE_MOCK },
         { provide: SignUpService, useValue: spy },
       ]

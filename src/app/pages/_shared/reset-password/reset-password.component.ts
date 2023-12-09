@@ -4,18 +4,17 @@ import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { ResetPasswordService } from './service/reset-password.service';
 import { ToastrService } from 'ngx-toastr';
-import { HttpErrorResponse } from '@angular/common/http';
-import { IHandleError } from 'src/app/commons/handle-error.interface';
+import { HandleError } from 'src/app/commons/handle-error/handle-error';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-reset-password',
   templateUrl: './reset-password.component.html',
   styleUrls: ['./reset-password.component.scss']
 })
-export class ResetPasswordComponent implements OnDestroy, IHandleError {
+export class ResetPasswordComponent extends HandleError implements OnDestroy {
 
   private destroy$ = new Subject<boolean>();
-  isLoading = false;
 
   form = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -24,8 +23,11 @@ export class ResetPasswordComponent implements OnDestroy, IHandleError {
   constructor(
     private router: Router,
     private resetPasswordService: ResetPasswordService,
-    private toast: ToastrService,
-  ) {}
+    protected toast: ToastrService,
+    protected translatePipe: TranslatePipe,
+  ) {
+    super(toast, translatePipe);
+  }
 
   ngOnDestroy(): void {
     this.destroy$.next(true);
@@ -48,13 +50,8 @@ export class ResetPasswordComponent implements OnDestroy, IHandleError {
           this.isLoading = false;
           this.router.navigate(['login/reset-password/code-validation', this.email?.value], { skipLocationChange: true, });
         },
-        error: _error => this.handleError(_error),
+        error: _error => super.handleError(_error),
       });
-  }
-
-  handleError(error: HttpErrorResponse) {
-    this.isLoading = false;
-    this.toast.error(error.error.message);
   }
 
   back() {

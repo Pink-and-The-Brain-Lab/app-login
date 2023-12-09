@@ -13,7 +13,7 @@ import { ToastrService } from 'ngx-toastr';
 import TOASTR_SERVICE_MOCK from 'src/app/mocks/toastr-service.test.mock';
 import HTTP_ERROR_RESPONSE from 'src/app/mocks/http-error-response.test.mock';
 import SUBSCRIBE_RETURN_MOCK from 'src/app/mocks/subscribe-method.test.mock';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
 
 describe('ResetPasswordComponent', () => {
   let component: ResetPasswordComponent;
@@ -38,6 +38,7 @@ describe('ResetPasswordComponent', () => {
         TranslateModule.forRoot(),
       ],
       providers: [
+        TranslatePipe,
         { provide: ToastrService, useValue: TOASTR_SERVICE_MOCK },
         { provide: ResetPasswordService, useValue: spy },
       ]

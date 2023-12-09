@@ -11,7 +11,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import TOASTR_SERVICE_MOCK from 'src/app/mocks/toastr-service.test.mock';
 import HTTP_ERROR_RESPONSE from 'src/app/mocks/http-error-response.test.mock';
 import SUBSCRIBE_RETURN_MOCK from 'src/app/mocks/subscribe-method.test.mock';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
 
 describe('SignUpCodeValidationComponent', () => {
   let component: SignUpCodeValidationComponent;
@@ -31,6 +31,7 @@ describe('SignUpCodeValidationComponent', () => {
         TranslateModule.forRoot(),
       ],
       providers: [
+        TranslatePipe,
         { provide: ToastrService, useValue: TOASTR_SERVICE_MOCK },
         { provide: SignUpCodeValidationService, useValue: spy },
       ]
