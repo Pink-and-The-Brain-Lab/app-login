@@ -1,16 +1,14 @@
+import { inject } from '@angular/core';
 import { HttpErrorResponse } from "@angular/common/http";
 import { TranslatePipe } from "@ngx-translate/core";
 import { ToastrService } from "ngx-toastr";
-import { IHandleError } from "../handle-error.interface";
+import { IHandleError } from '../models/handle-error.interface';
 
 export class HandleError implements IHandleError {
 
     public isLoading = false;
-
-    constructor (
-        protected _toast: ToastrService,
-        protected _translatePipe: TranslatePipe,
-    ) {}
+    private readonly _toast = inject(ToastrService);
+    private readonly _translatePipe = inject(TranslatePipe);
 
     handleError(error: HttpErrorResponse) {
         this.isLoading = false;

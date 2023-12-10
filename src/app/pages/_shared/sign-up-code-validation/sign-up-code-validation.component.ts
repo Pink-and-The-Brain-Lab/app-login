@@ -1,10 +1,10 @@
-import { Component, OnDestroy } from '@angular/core';
-import { SignUpCodeValidationService } from './service/sign-up-code-validation.service';
+import { Component, OnDestroy, inject } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HandleError } from 'src/app/commons/handle-error/handle-error';
-import { TranslatePipe } from '@ngx-translate/core';
+import { GenericCRUDService } from 'src/app/commons/services/generic-crud.service';
+import { API_PATH } from 'src/app/constants/api-path';
 
 @Component({
   selector: 'app-sign-up-code-validation',
@@ -13,17 +13,16 @@ import { TranslatePipe } from '@ngx-translate/core';
 })
 export class SignUpCodeValidationComponent extends HandleError implements OnDestroy {
 
+  private readonly genericCRUDService = inject(GenericCRUDService);
   private destroy$ = new Subject<boolean>();
   email = '';
 
   constructor(
-    private signUpCodeValidationService: SignUpCodeValidationService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    protected toast: ToastrService,
-    protected translatePipe: TranslatePipe,
+    private toast: ToastrService,
   ) {
-    super(toast, translatePipe);
+    super();
     this.email = this.activatedRoute.snapshot.params['email'];
   }
 
@@ -35,7 +34,7 @@ export class SignUpCodeValidationComponent extends HandleError implements OnDest
   validate(code: string) {
     this.isLoading = true;
 
-    this.signUpCodeValidationService.validate(code)
+    this.genericCRUDService.genericPost<string, string>(API_PATH.tokenValidation, code)
       .pipe(
         takeUntil(this.destroy$)
       )
@@ -50,7 +49,7 @@ export class SignUpCodeValidationComponent extends HandleError implements OnDest
   }
 
   generateNewToken() {
-    this.signUpCodeValidationService.generateNewToken(this.email)
+    this.genericCRUDService.genericPost<string, string>(API_PATH.generateNewToken, this.email)
     .pipe(
       takeUntil(this.destroy$)
     )

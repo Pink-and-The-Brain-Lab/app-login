@@ -1,11 +1,11 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, inject } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
-import { ResetPasswordService } from './service/reset-password.service';
-import { ToastrService } from 'ngx-toastr';
 import { HandleError } from 'src/app/commons/handle-error/handle-error';
-import { TranslatePipe } from '@ngx-translate/core';
+import { IDefaultResponse } from 'src/app/commons/models/default-response.interface';
+import { GenericCRUDService } from 'src/app/commons/services/generic-crud.service';
+import { API_PATH } from 'src/app/constants/api-path';
 
 @Component({
   selector: 'app-reset-password',
@@ -14,6 +14,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 })
 export class ResetPasswordComponent extends HandleError implements OnDestroy {
 
+  private readonly genericCRUDService = inject(GenericCRUDService);
   private destroy$ = new Subject<boolean>();
 
   form = new FormGroup({
@@ -22,11 +23,8 @@ export class ResetPasswordComponent extends HandleError implements OnDestroy {
 
   constructor(
     private router: Router,
-    private resetPasswordService: ResetPasswordService,
-    protected toast: ToastrService,
-    protected translatePipe: TranslatePipe,
   ) {
-    super(toast, translatePipe);
+    super();
   }
 
   ngOnDestroy(): void {
@@ -41,7 +39,7 @@ export class ResetPasswordComponent extends HandleError implements OnDestroy {
   sendCode() {
     this.isLoading = true;
 
-    this.resetPasswordService.send(this.email?.value)
+    this.genericCRUDService.genericPost<IDefaultResponse, string>(API_PATH.resetPassword, this.email?.value)
       .pipe(
         takeUntil(this.destroy$)
       )

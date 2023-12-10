@@ -1,12 +1,12 @@
-import { Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, ViewChild, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IPasswordEvent } from 'millez-components-lib/components/lib/create-password/models/password-event';
 import { Subject, takeUntil } from 'rxjs';
-import { CreateNewPasswordService } from './service/create-new-password.service';
-import { ToastrService } from 'ngx-toastr';
 import { IResetInterface } from './models/reset-password.interface';
-import { TranslatePipe } from '@ngx-translate/core';
 import { HandleError } from 'src/app/commons/handle-error/handle-error';
+import { GenericCRUDService } from 'src/app/commons/services/generic-crud.service';
+import { API_PATH } from 'src/app/constants/api-path';
+import { IDefaultResponse } from 'src/app/commons/models/default-response.interface';
 
 @Component({
   selector: 'app-create-new-password',
@@ -16,6 +16,7 @@ import { HandleError } from 'src/app/commons/handle-error/handle-error';
 export class CreateNewPasswordComponent extends HandleError implements OnDestroy {
 
   @ViewChild('button', { static: true }) resetButton: ElementRef = {} as ElementRef;
+  private readonly genericCRUDService = inject(GenericCRUDService);
   private destroy$ = new Subject<boolean>();
   isPasswordValid = false;
   private password = '';
@@ -24,12 +25,9 @@ export class CreateNewPasswordComponent extends HandleError implements OnDestroy
 
   constructor(
     private router: Router,
-    private createNewPasswordService: CreateNewPasswordService,
     private activatedRoute: ActivatedRoute,
-    protected toast: ToastrService,
-    protected translatePipe: TranslatePipe,
   ) {
-    super(toast, translatePipe);
+    super();
     this.email = this.activatedRoute.snapshot.params['email'];
   }
 
@@ -50,7 +48,7 @@ export class CreateNewPasswordComponent extends HandleError implements OnDestroy
       confirmPassword: this.confirmPassword,
     };
 
-    this.createNewPasswordService.send(data)
+    this.genericCRUDService.genericPost<IDefaultResponse, IResetInterface>(API_PATH.createPassword, data)
       .pipe(
         takeUntil(this.destroy$)
       )

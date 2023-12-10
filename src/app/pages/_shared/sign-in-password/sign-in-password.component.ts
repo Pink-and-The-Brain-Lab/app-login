@@ -1,15 +1,15 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, inject } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 import { Subject, takeUntil } from 'rxjs';
-import { InputType } from 'src/app/models/input-type';
-import { SignInPasswordService } from './service/sign-in-password.service';
 import { ISignin } from './models/sign-in.interface';
 import { LocalStorageManager } from 'millez-components-lib/components';
 import { IUser } from './models/user.interface';
 import { HandleError } from 'src/app/commons/handle-error/handle-error';
-import { TranslatePipe } from '@ngx-translate/core';
+import { GenericCRUDService } from 'src/app/commons/services/generic-crud.service';
+import { ISigninResponse } from './models/sign-in-response.interface';
+import { API_PATH } from 'src/app/constants/api-path';
+import { InputType } from 'src/app/commons/models/input-type';
 
 @Component({
   selector: 'app-sign-in-password',
@@ -18,6 +18,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 })
 export class SignInPasswordComponent extends HandleError implements OnDestroy {
 
+  private readonly genericCRUDService = inject(GenericCRUDService);
   private destroy$ = new Subject<boolean>();
   inputType: InputType = 'password';
   email = '';
@@ -29,12 +30,9 @@ export class SignInPasswordComponent extends HandleError implements OnDestroy {
 
   constructor(
     private router: Router,
-    private signInPasswordService: SignInPasswordService,
     private activatedRoute: ActivatedRoute,
-    protected toast: ToastrService,
-    protected translatePipe: TranslatePipe,
   ) {
-    super(toast, translatePipe);
+    super();
     this.email = this.activatedRoute.snapshot.params['email'];
   }
 
@@ -58,7 +56,7 @@ export class SignInPasswordComponent extends HandleError implements OnDestroy {
       password: this.pass?.value,
     };
 
-    this.signInPasswordService.signIn(data)
+    this.genericCRUDService.genericPost<ISigninResponse, ISignin>(API_PATH.signIn, data)
       .pipe(
         takeUntil(this.destroy$)
       )

@@ -1,12 +1,10 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
-import { ResetPasswordCodeValidationService } from './service/reset-password-code-validation.service';
-import { ToastrService } from 'ngx-toastr';
-import { HttpErrorResponse } from '@angular/common/http';
-import { IHandleError } from 'src/app/commons/handle-error.interface';
 import { HandleError } from 'src/app/commons/handle-error/handle-error';
-import { TranslatePipe } from '@ngx-translate/core';
+import { IDefaultResponse } from 'src/app/commons/models/default-response.interface';
+import { GenericCRUDService } from 'src/app/commons/services/generic-crud.service';
+import { API_PATH } from 'src/app/constants/api-path';
 
 @Component({
   selector: 'app-reset-password-code-validation',
@@ -15,17 +13,15 @@ import { TranslatePipe } from '@ngx-translate/core';
 })
 export class ResetPasswordCodeValidationComponent extends HandleError implements OnDestroy {
 
+  private readonly genericCRUDService = inject(GenericCRUDService);
   private destroy$ = new Subject<boolean>();
   email = '';
 
   constructor(
     private router: Router,
-    private resetPasswordCodeValidationService: ResetPasswordCodeValidationService,
     private activatedRoute: ActivatedRoute,
-    protected toast: ToastrService,
-    protected translatePipe: TranslatePipe,
   ) {
-    super(toast, translatePipe);
+    super();
     this.email = this.activatedRoute.snapshot.params['email'];
   }
 
@@ -37,7 +33,7 @@ export class ResetPasswordCodeValidationComponent extends HandleError implements
   validate(code: string) {
     this.isLoading = true;
     
-    this.resetPasswordCodeValidationService.validate(code)
+    this.genericCRUDService.genericPost<IDefaultResponse, string>(API_PATH.tokenValidation, code)
       .pipe(
         takeUntil(this.destroy$)
       )

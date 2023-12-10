@@ -1,13 +1,12 @@
-import { Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, ViewChild, inject } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
-import { SignUpService } from './service/sign-up.service';
 import { ISignup } from './models/signup.interface';
-import { ToastrService } from 'ngx-toastr';
 import { IPasswordEvent } from 'millez-components-lib/components/lib/create-password/models/password-event';
 import { HandleError } from 'src/app/commons/handle-error/handle-error';
-import { TranslatePipe } from '@ngx-translate/core';
+import { GenericCRUDService } from 'src/app/commons/services/generic-crud.service';
+import { API_PATH } from 'src/app/constants/api-path';
 
 @Component({
   selector: 'app-sign-up',
@@ -17,6 +16,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 export class SignUpComponent extends HandleError implements OnDestroy {
 
   @ViewChild('button', { static: true }) resetButton: ElementRef = {} as ElementRef;
+  private readonly genericCRUDService = inject(GenericCRUDService);
   private destroy$ = new Subject<boolean>();
   isPasswordValid = false;
   private password = '';
@@ -31,11 +31,8 @@ export class SignUpComponent extends HandleError implements OnDestroy {
 
   constructor(
     private router: Router,
-    private signUpService: SignUpService,
-    protected toast: ToastrService,
-    protected translatePipe: TranslatePipe,
   ) {
-    super(toast, translatePipe);
+    super();
   }
 
   ngOnDestroy(): void {
@@ -58,7 +55,7 @@ export class SignUpComponent extends HandleError implements OnDestroy {
       recieveInformation: this.recieveInformation,
     };
 
-    this.signUpService.signUp(data)
+    this.genericCRUDService.genericPost<ISignup, ISignup>(API_PATH.signUp, data)
       .pipe(
         takeUntil(this.destroy$)
       )
