@@ -15,15 +15,14 @@ import { API_PATH } from 'src/app/constants/api-path';
 export class ResetPasswordComponent extends HandleError implements OnDestroy {
 
   private readonly genericCRUDService = inject(GenericCRUDService);
+  private readonly router = inject(Router);
   private destroy$ = new Subject<boolean>();
 
   form = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
   });
 
-  constructor(
-    private router: Router,
-  ) {
+  constructor() {
     super();
   }
 

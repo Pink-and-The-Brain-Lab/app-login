@@ -23,7 +23,7 @@
                 </small>
             </div>
             
-            <app-create-password (passwordValidation)="validatePassword($event)" (submitEvent)="createAccount()" (passwordEvent)="updatePassword($event)"></app-create-password>
+            <cdk-create-password (passwordValidation)="validatePassword($event)" (submitEvent)="createAccount()" (passwordEvent)="updatePassword($event)"></cdk-create-password>
             <cdk-checkbox class="mt-4" label="{{ 'ALLOW_MILLEZ_TO_COMMUNICATE' | translate }}" (change)="comunicateNotifications = $event"></cdk-checkbox>
             <cdk-checkbox class="mt-4" label="{{ 'RECEIVE_INFORMATION' | translate }}" [value]="recieveInformation" (change)="recieveInformation = $event"></cdk-checkbox>
 

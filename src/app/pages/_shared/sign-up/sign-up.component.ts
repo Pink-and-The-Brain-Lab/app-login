@@ -17,6 +17,7 @@ export class SignUpComponent extends HandleError implements OnDestroy {
 
   @ViewChild('button', { static: true }) resetButton: ElementRef = {} as ElementRef;
   private readonly genericCRUDService = inject(GenericCRUDService);
+  private readonly router = inject(Router);
   private destroy$ = new Subject<boolean>();
   isPasswordValid = false;
   private password = '';
@@ -29,9 +30,7 @@ export class SignUpComponent extends HandleError implements OnDestroy {
     recieveInformation: new FormControl(true),
   });
 
-  constructor(
-    private router: Router,
-  ) {
+  constructor() {
     super();
   }
 

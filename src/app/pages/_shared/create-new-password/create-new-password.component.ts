@@ -17,16 +17,15 @@ export class CreateNewPasswordComponent extends HandleError implements OnDestroy
 
   @ViewChild('button', { static: true }) resetButton: ElementRef = {} as ElementRef;
   private readonly genericCRUDService = inject(GenericCRUDService);
+  private readonly router = inject(Router);
+  private readonly activatedRoute = inject(ActivatedRoute);
   private destroy$ = new Subject<boolean>();
   isPasswordValid = false;
   private password = '';
   private confirmPassword = '';
   email = '';
 
-  constructor(
-    private router: Router,
-    private activatedRoute: ActivatedRoute,
-  ) {
+  constructor() {
     super();
     this.email = this.activatedRoute.snapshot.params['email'];
   }

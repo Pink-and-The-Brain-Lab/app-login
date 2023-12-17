@@ -14,13 +14,12 @@ import { API_PATH } from 'src/app/constants/api-path';
 export class ResetPasswordCodeValidationComponent extends HandleError implements OnDestroy {
 
   private readonly genericCRUDService = inject(GenericCRUDService);
+  private readonly router = inject(Router);
+  private readonly activatedRoute = inject(ActivatedRoute);
   private destroy$ = new Subject<boolean>();
   email = '';
 
-  constructor(
-    private router: Router,
-    private activatedRoute: ActivatedRoute,
-  ) {
+  constructor() {
     super();
     this.email = this.activatedRoute.snapshot.params['email'];
   }

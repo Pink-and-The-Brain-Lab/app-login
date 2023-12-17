@@ -19,6 +19,9 @@ import { InputType } from 'src/app/commons/models/input-type';
 export class SignInPasswordComponent extends HandleError implements OnDestroy {
 
   private readonly genericCRUDService = inject(GenericCRUDService);
+  private readonly localStorageManager = inject(LocalStorageManager);
+  private readonly router = inject(Router);
+  private readonly activatedRoute = inject(ActivatedRoute);
   private destroy$ = new Subject<boolean>();
   inputType: InputType = 'password';
   email = '';
@@ -28,10 +31,7 @@ export class SignInPasswordComponent extends HandleError implements OnDestroy {
     stayLoggedIn: new FormControl(false),
   });
 
-  constructor(
-    private router: Router,
-    private activatedRoute: ActivatedRoute,
-  ) {
+  constructor() {
     super();
     this.email = this.activatedRoute.snapshot.params['email'];
   }
@@ -63,9 +63,9 @@ export class SignInPasswordComponent extends HandleError implements OnDestroy {
       .subscribe({
         next: _response => {
           this.isLoading = false;
-          LocalStorageManager.set<string>('token', _response.token);
-          LocalStorageManager.set<IUser>('user', _response.user);
-          LocalStorageManager.set<boolean>('stay logged in', !!this.form.get('stayLoggedIn')?.value);
+          this.localStorageManager.set<string>('token', _response.token);
+          this.localStorageManager.set<IUser>('user', _response.user);
+          this.localStorageManager.set<boolean>('stay logged in', !!this.form.get('stayLoggedIn')?.value);
           if (fromTest) return;
           window.location.replace('');
         },

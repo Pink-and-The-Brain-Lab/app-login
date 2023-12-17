@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { ILanguageOption, LocalStorageManager } from 'millez-components-lib/components';
 import { Subject, takeUntil } from 'rxjs';
@@ -13,14 +13,12 @@ export class LoginComponent implements OnInit, OnDestroy {
   languageOptions: ILanguageOption[] = [];
   selectedOption: ILanguageOption | null = null;
   private destroy$ = new Subject<boolean>();
-
-  constructor(
-    private translateService: TranslateService,
-    private translatePipe: TranslatePipe
-  ) {}
+  private readonly localStorageManager = inject(LocalStorageManager);
+  private readonly translateService = inject(TranslateService);
+  private readonly translatePipe = inject(TranslatePipe);
 
   ngOnInit(): void {
-    this.languageOptions = LocalStorageManager.get<ILanguageOption[]>('languageOptions') || [];
+    this.languageOptions = this.localStorageManager.get<ILanguageOption[]>('languageOptions') || [];
     this.getSelectedLanguage();
     this.translateService.onLangChange
       .pipe(
@@ -35,7 +33,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   private getSelectedLanguage() {
-    const selectedLaguage = LocalStorageManager.get<string>('selectedLaguage') || '';
+    const selectedLaguage = this.localStorageManager.get<string>('selectedLaguage') || '';
 
     if (!selectedLaguage.length) {
       this.selectedOption = this.languageOptions[0];
@@ -50,7 +48,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   changeLanguage(language: ILanguageOption) {
     this.translateService.use(language.value);
-    LocalStorageManager.set<string>('selectedLaguage', language.value);
+    this.localStorageManager.set<string>('selectedLaguage', language.value);
     this.selectedOption = language
     this.selectedOption = this.translateSelectedOption(language);
   }

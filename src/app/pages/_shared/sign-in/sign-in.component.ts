@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -9,13 +9,11 @@ import { Router } from '@angular/router';
 })
 export class SignInComponent {
 
+  private readonly router = inject(Router);
+
   form = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email])
   });
-
-  constructor(
-    private router: Router,
-  ) {}
 
   signUp() {
     this.router.navigate(['login/sign-up'], { skipLocationChange: true, });
