@@ -1,19 +1,18 @@
-@import "variables";
 @import "em";
 
 h4 {
-    color: $emphasis-high;
+    color: var(--emphasis-high);
     font-size: to-em(20);
     font-weight: 700;
     line-height: to-em(28);
 }
 
 .qr-code {
-    border-right: 1px solid $support-8;
+    border-right: 1px solid var(--support-8);
 
     p {
         max-width: 216px;
-        color: $emphasis-low;
+        color: var(--emphasis-low);
         font-size: to-em(14);
         font-weight: 400;
         line-height: to-em(20);
@@ -31,14 +30,14 @@ h4 {
     }
 
     h3 {
-        color: $emphasis-high;
+        color: var(--emphasis-high);
         font-size: to-em(30);
         font-weight: 700;
         line-height: to-em(40);
     }
 
     strong {
-        color: $emphasis-medium;
+        color: var(--emphasis-medium);
         font-size: to-em(14);
         font-weight: 600;
         line-height: to-em(20);
@@ -48,7 +47,7 @@ h4 {
 
 footer {
     p {
-        color: $emphasis-low;
+        color: var(--emphasis-low);
         font-size: to-em(14);
         font-weight: 600;
     }

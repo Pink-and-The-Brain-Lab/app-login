@@ -1,4 +1,3 @@
-@import "variables";
 @import "em";
 
 .content {
@@ -9,7 +8,7 @@
     }
     
     h3 {
-        color: $emphasis-high;
+        color: var(--emphasis-high);
         text-align: center;
         font-size: to-em(30);
         font-weight: 700;
@@ -17,18 +16,18 @@
     }
 
     p {
-        color: $emphasis-low;
+        color: var(--emphasis-low);
         font-size: to-em(14);
     }
     
     i {
-        color: $emphasis-low;
+        color: var(--emphasis-low);
         cursor: pointer;
     }
 
     a {
         text-decoration: none;
-        color: $st-blue;
+        color: var(--st-blue);
 
         &:hover {
             text-decoration: underline;
@@ -38,7 +37,7 @@
 
 footer {
     p {
-        color: $emphasis-low;
+        color: var(--emphasis-low);
         font-size: to-em(14);
         font-weight: 600;
     }
