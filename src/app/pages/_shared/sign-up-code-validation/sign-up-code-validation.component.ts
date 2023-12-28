@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HandleError } from 'src/app/commons/handle-error/handle-error';
 import { GenericCRUDService } from 'src/app/commons/services/generic-crud.service';
 import { API_PATH } from 'src/app/constants/api-path';
+import { ITokenValidation } from '../reset-password-code-validation/models/token-validation.interface';
 
 @Component({
   selector: 'app-sign-up-code-validation',
@@ -33,8 +34,11 @@ export class SignUpCodeValidationComponent extends HandleError implements OnDest
 
   validate(code: string) {
     this.isLoading = true;
+    const token: ITokenValidation = {
+      token: code
+    };
 
-    this.genericCRUDService.genericPost<string, string>(API_PATH.tokenValidation, code)
+    this.genericCRUDService.genericPost<string, ITokenValidation>(API_PATH.tokenValidation, token)
       .pipe(
         takeUntil(this.destroy$)
       )

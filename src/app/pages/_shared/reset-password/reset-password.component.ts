@@ -6,6 +6,7 @@ import { HandleError } from 'src/app/commons/handle-error/handle-error';
 import { IDefaultResponse } from 'src/app/commons/models/default-response.interface';
 import { GenericCRUDService } from 'src/app/commons/services/generic-crud.service';
 import { API_PATH } from 'src/app/constants/api-path';
+import { IEmail } from './models/email.interface';
 
 @Component({
   selector: 'app-reset-password',
@@ -37,8 +38,11 @@ export class ResetPasswordComponent extends HandleError implements OnDestroy {
 
   sendCode() {
     this.isLoading = true;
+    const payload: IEmail = {
+      email: this.email?.value
+    };
 
-    this.genericCRUDService.genericPost<IDefaultResponse, string>(API_PATH.resetPassword, this.email?.value)
+    this.genericCRUDService.genericPost<IDefaultResponse, IEmail>(API_PATH.resetPassword, payload)
       .pipe(
         takeUntil(this.destroy$)
       )

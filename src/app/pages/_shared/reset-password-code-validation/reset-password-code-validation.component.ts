@@ -5,6 +5,7 @@ import { HandleError } from 'src/app/commons/handle-error/handle-error';
 import { IDefaultResponse } from 'src/app/commons/models/default-response.interface';
 import { GenericCRUDService } from 'src/app/commons/services/generic-crud.service';
 import { API_PATH } from 'src/app/constants/api-path';
+import { ITokenValidation } from './models/token-validation.interface';
 
 @Component({
   selector: 'app-reset-password-code-validation',
@@ -31,8 +32,11 @@ export class ResetPasswordCodeValidationComponent extends HandleError implements
 
   validate(code: string) {
     this.isLoading = true;
+    const token: ITokenValidation = {
+      token: code
+    };
     
-    this.genericCRUDService.genericPost<IDefaultResponse, string>(API_PATH.tokenValidation, code)
+    this.genericCRUDService.genericPost<IDefaultResponse, ITokenValidation>(API_PATH.tokenValidation, token)
       .pipe(
         takeUntil(this.destroy$)
       )
