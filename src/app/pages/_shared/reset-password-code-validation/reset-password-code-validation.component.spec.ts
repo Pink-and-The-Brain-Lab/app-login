@@ -8,19 +8,19 @@ import { Router } from '@angular/router';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ToastrService } from 'ngx-toastr';
-import { ResetPasswordCodeValidationService } from './service/reset-password-code-validation.service';
 import TOASTR_SERVICE_MOCK from 'src/app/mocks/toastr-service.test.mock';
 import HTTP_ERROR_RESPONSE from 'src/app/mocks/http-error-response.test.mock';
 import SUBSCRIBE_RETURN_MOCK from 'src/app/mocks/subscribe-method.test.mock';
 import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
+import { GenericCRUDService } from 'src/app/commons/services/generic-crud.service';
 
 describe('ResetPasswordCodeValidationComponent', () => {
   let component: ResetPasswordCodeValidationComponent;
   let fixture: ComponentFixture<ResetPasswordCodeValidationComponent>;
-  let service: jasmine.SpyObj<ResetPasswordCodeValidationService>;
+  let service: jasmine.SpyObj<GenericCRUDService>;
 
   beforeEach(async () => {
-    const spy = jasmine.createSpyObj('ResetPasswordCodeValidationService', ['validate']);
+    const spy = jasmine.createSpyObj('GenericCRUDService', ['genericPost']);
     await TestBed.configureTestingModule({
       declarations: [ ResetPasswordCodeValidationComponent ],
       imports: [
@@ -37,14 +37,14 @@ describe('ResetPasswordCodeValidationComponent', () => {
       providers: [
         TranslatePipe,
         { provide: ToastrService, useValue: TOASTR_SERVICE_MOCK },
-        { provide: ResetPasswordCodeValidationService, useValue: spy },
+        { provide: GenericCRUDService, useValue: spy },
       ]
     })
     .compileComponents();
 
     fixture = TestBed.createComponent(ResetPasswordCodeValidationComponent);
     component = fixture.componentInstance;
-    service = TestBed.inject(ResetPasswordCodeValidationService) as jasmine.SpyObj<ResetPasswordCodeValidationService>;
+    service = TestBed.inject(GenericCRUDService) as jasmine.SpyObj<GenericCRUDService>;
     fixture.detectChanges();
   });
 
@@ -64,9 +64,9 @@ describe('ResetPasswordCodeValidationComponent', () => {
     component.email = email;
     const router = TestBed.inject(Router);
     const spy = spyOn(router, 'navigate');
-    service.validate.and.returnValue(SUBSCRIBE_RETURN_MOCK);
+    service.genericPost.and.returnValue(SUBSCRIBE_RETURN_MOCK);
     component.validate('123456');
-    service.validate('').subscribe({
+    service.genericPost('').subscribe({
       next: () => {
         expect(component.isLoading).toBeFalse();
         expect(spy).toHaveBeenCalledWith(['login/new-password', email], { skipLocationChange: true, });

@@ -27,6 +27,7 @@ export const TRANSLATE_PIPE_MOCK = {
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
+  let localStorageManager: LocalStorageManager;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -43,6 +44,7 @@ describe('LoginComponent', () => {
     .compileComponents();
 
     fixture = TestBed.createComponent(LoginComponent);
+    localStorageManager = TestBed.inject(LocalStorageManager);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -52,7 +54,7 @@ describe('LoginComponent', () => {
   });
 
   it('should get language options', () => {
-    spyOn(LocalStorageManager, 'get')
+    spyOn(localStorageManager, 'get')
       .withArgs('languageOptions').and.returnValue(LANGUAGE_OPTIONS)
       .withArgs('selectedLaguage').and.returnValue('en');
     component.ngOnInit();
@@ -61,7 +63,7 @@ describe('LoginComponent', () => {
   });
 
   it('should get selected language and set english as a default', () => {
-    spyOn(LocalStorageManager, 'get')
+    spyOn(localStorageManager, 'get')
       .withArgs('languageOptions').and.returnValue(LANGUAGE_OPTIONS)
       .withArgs('selectedLaguage').and.returnValue('');
     component.languageOptions = LANGUAGE_OPTIONS;
@@ -70,7 +72,7 @@ describe('LoginComponent', () => {
   });
 
   it('should get selected language and set portuguese as a default', () => {
-    spyOn(LocalStorageManager, 'get')
+    spyOn(localStorageManager, 'get')
       .withArgs('languageOptions').and.returnValue(LANGUAGE_OPTIONS)
       .withArgs('selectedLaguage').and.returnValue('pt');
     component.languageOptions = LANGUAGE_OPTIONS;
@@ -79,7 +81,7 @@ describe('LoginComponent', () => {
   });
 
   it('should change language to spanish', () => {
-    const spy = spyOn(LocalStorageManager, 'set');
+    const spy = spyOn(localStorageManager, 'set');
     component.changeLanguage(LANGUAGE_OPTIONS[2]);
     expect(spy).toHaveBeenCalledWith('selectedLaguage', LANGUAGE_OPTIONS[2].value);
   });

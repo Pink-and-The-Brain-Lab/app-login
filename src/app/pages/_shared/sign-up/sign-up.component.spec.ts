@@ -7,21 +7,21 @@ import { ButtonModule } from 'src/app/components/button/button.module';
 import { Router } from '@angular/router';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { SignUpService } from './service/sign-up.service';
 import { ToastrService } from 'ngx-toastr';
 import { IPasswordEvent } from 'millez-components-lib/components/lib/create-password/models/password-event';
 import TOASTR_SERVICE_MOCK from 'src/app/mocks/toastr-service.test.mock';
 import HTTP_ERROR_RESPONSE from 'src/app/mocks/http-error-response.test.mock';
 import SUBSCRIBE_RETURN_MOCK from 'src/app/mocks/subscribe-method.test.mock';
 import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
+import { GenericCRUDService } from 'src/app/commons/services/generic-crud.service';
 
 describe('SignUpComponent', () => {
   let component: SignUpComponent;
   let fixture: ComponentFixture<SignUpComponent>;
-  let service: jasmine.SpyObj<SignUpService>;
+  let service: jasmine.SpyObj<GenericCRUDService>;
 
   beforeEach(async () => {
-    const spy = jasmine.createSpyObj('SignUpService', ['signUp']);
+    const spy = jasmine.createSpyObj('GenericCRUDService', ['genericPost']);
     await TestBed.configureTestingModule({
       declarations: [ SignUpComponent ],
       imports: [
@@ -41,14 +41,14 @@ describe('SignUpComponent', () => {
       providers: [
         TranslatePipe,
         { provide: ToastrService, useValue: TOASTR_SERVICE_MOCK },
-        { provide: SignUpService, useValue: spy },
+        { provide: GenericCRUDService, useValue: spy },
       ]
     })
     .compileComponents();
 
     fixture = TestBed.createComponent(SignUpComponent);
     component = fixture.componentInstance;
-    service = TestBed.inject(SignUpService) as jasmine.SpyObj<SignUpService>;
+    service = TestBed.inject(GenericCRUDService) as jasmine.SpyObj<GenericCRUDService>;
     fixture.detectChanges();
   });
 
@@ -141,9 +141,9 @@ describe('SignUpComponent', () => {
     component.form.patchValue({ email })
     const router = TestBed.inject(Router);
     const spy = spyOn(router, 'navigate');
-    service.signUp.and.returnValue(SUBSCRIBE_RETURN_MOCK);
+    service.genericPost.and.returnValue(SUBSCRIBE_RETURN_MOCK);
     component.createAccount();
-    service.signUp({} as any).subscribe({
+    service.genericPost({} as any).subscribe({
       next: () => {
         expect(component.isLoading).toBeFalse();
         expect(spy).toHaveBeenCalledWith(['login/sign-up/code-validation', email], { skipLocationChange: true, });

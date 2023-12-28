@@ -8,20 +8,20 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ResetPasswordService } from './service/reset-password.service';
 import { ToastrService } from 'ngx-toastr';
 import TOASTR_SERVICE_MOCK from 'src/app/mocks/toastr-service.test.mock';
 import HTTP_ERROR_RESPONSE from 'src/app/mocks/http-error-response.test.mock';
 import SUBSCRIBE_RETURN_MOCK from 'src/app/mocks/subscribe-method.test.mock';
 import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
+import { GenericCRUDService } from 'src/app/commons/services/generic-crud.service';
 
 describe('ResetPasswordComponent', () => {
   let component: ResetPasswordComponent;
   let fixture: ComponentFixture<ResetPasswordComponent>;
-  let service: jasmine.SpyObj<ResetPasswordService>;
+  let service: jasmine.SpyObj<GenericCRUDService>;
 
   beforeEach(async () => {
-    const spy = jasmine.createSpyObj('ResetPasswordService', ['send']);
+    const spy = jasmine.createSpyObj('GenericCRUDService', ['genericPost']);
     await TestBed.configureTestingModule({
       declarations: [ ResetPasswordComponent ],
       imports: [
@@ -40,14 +40,14 @@ describe('ResetPasswordComponent', () => {
       providers: [
         TranslatePipe,
         { provide: ToastrService, useValue: TOASTR_SERVICE_MOCK },
-        { provide: ResetPasswordService, useValue: spy },
+        { provide: GenericCRUDService, useValue: spy },
       ]
     })
     .compileComponents();
 
     fixture = TestBed.createComponent(ResetPasswordComponent);
     component = fixture.componentInstance;
-    service = TestBed.inject(ResetPasswordService) as jasmine.SpyObj<ResetPasswordService>;
+    service = TestBed.inject(GenericCRUDService) as jasmine.SpyObj<GenericCRUDService>;
     fixture.detectChanges();
   });
 
@@ -74,9 +74,9 @@ describe('ResetPasswordComponent', () => {
   it('should reset password', fakeAsync(() => {
     const router = TestBed.inject(Router);
     const spy = spyOn(router, 'navigate');
-    service.send.and.returnValue(SUBSCRIBE_RETURN_MOCK);
+    service.genericPost.and.returnValue(SUBSCRIBE_RETURN_MOCK);
     component.sendCode();
-    service.send('').subscribe({
+    service.genericPost('').subscribe({
       next: () => {
         expect(component.isLoading).toBeFalse();
         expect(spy).toHaveBeenCalled();

@@ -8,19 +8,19 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { SignInPasswordService } from './service/sign-in-password.service';
 import TOASTR_SERVICE_MOCK from 'src/app/mocks/toastr-service.test.mock';
 import HTTP_ERROR_RESPONSE from 'src/app/mocks/http-error-response.test.mock';
 import SUBSCRIBE_RETURN_MOCK from 'src/app/mocks/subscribe-method.test.mock';
 import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
+import { GenericCRUDService } from 'src/app/commons/services/generic-crud.service';
 
 describe('SignInPasswordComponent', () => {
   let component: SignInPasswordComponent;
   let fixture: ComponentFixture<SignInPasswordComponent>;
-  let service: jasmine.SpyObj<SignInPasswordService>;
+  let service: jasmine.SpyObj<GenericCRUDService>;
 
   beforeEach(async () => {
-    const spy = jasmine.createSpyObj('SignInPasswordService', ['signIn']);
+    const spy = jasmine.createSpyObj('GenericCRUDService', ['genericPost']);
     await TestBed.configureTestingModule({
       declarations: [ SignInPasswordComponent ],
       imports: [
@@ -39,14 +39,14 @@ describe('SignInPasswordComponent', () => {
       providers: [
         TranslatePipe,
         { provide: ToastrService, useValue: TOASTR_SERVICE_MOCK },
-        { provide: SignInPasswordService, useValue: spy },
+        { provide: GenericCRUDService, useValue: spy },
       ]
     })
     .compileComponents();
 
     fixture = TestBed.createComponent(SignInPasswordComponent);
     component = fixture.componentInstance;
-    service = TestBed.inject(SignInPasswordService) as jasmine.SpyObj<SignInPasswordService>;
+    service = TestBed.inject(GenericCRUDService) as jasmine.SpyObj<GenericCRUDService>;
     fixture.detectChanges();
   });
 
@@ -87,9 +87,9 @@ describe('SignInPasswordComponent', () => {
   });
 
   it('should submit new password', fakeAsync(() => {
-    service.signIn.and.returnValue(SUBSCRIBE_RETURN_MOCK);
+    service.genericPost.and.returnValue(SUBSCRIBE_RETURN_MOCK);
     component.login(true);
-    service.signIn({} as any).subscribe({
+    service.genericPost({} as any).subscribe({
       next: () => {
         expect(component.isLoading).toBeFalse();
       },
