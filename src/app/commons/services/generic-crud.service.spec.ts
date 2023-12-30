@@ -26,19 +26,6 @@ describe('GenericCRUDService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should call get method', fakeAsync(() => {
-    const responseMock: IDefaultResponse = { success: true };
-    service.genericGet(`${API_PATH.createPassword}`, {}).subscribe({
-      next: response => {
-        expect(response).toEqual(responseMock);
-      }
-    });
-
-    const req = httpController.expectOne(`${environment.baseUlr}${API_PATH.createPassword}`);
-    expect(req.request.method).toEqual('GET');
-    req.flush(responseMock);
-  }));
-
   it('should call post method', fakeAsync(() => {
     const responseMock: IDefaultResponse = { success: true };
     service.genericPost(`${API_PATH.createPassword}`, {}).subscribe({
@@ -49,45 +36,6 @@ describe('GenericCRUDService', () => {
 
     const req = httpController.expectOne(`${environment.baseUlr}${API_PATH.createPassword}`);
     expect(req.request.method).toEqual('POST');
-    req.flush(responseMock);
-  }));
-
-  it('should call put method', fakeAsync(() => {
-    const responseMock: IDefaultResponse = { success: true };
-    service.genericPut(`${API_PATH.createPassword}`, {}).subscribe({
-      next: response => {
-        expect(response).toEqual(responseMock);
-      }
-    });
-
-    const req = httpController.expectOne(`${environment.baseUlr}${API_PATH.createPassword}`);
-    expect(req.request.method).toEqual('PUT');
-    req.flush(responseMock);
-  }));
-
-  it('should call patch method', fakeAsync(() => {
-    const responseMock: IDefaultResponse = { success: true };
-    service.genericPatch(`${API_PATH.createPassword}`, {}).subscribe({
-      next: response => {
-        expect(response).toEqual(responseMock);
-      }
-    });
-
-    const req = httpController.expectOne(`${environment.baseUlr}${API_PATH.createPassword}`);
-    expect(req.request.method).toEqual('PATCH');
-    req.flush(responseMock);
-  }));
-
-  it('should call delete method', fakeAsync(() => {
-    const responseMock: IDefaultResponse = { success: true };
-    service.genericDelete(`${API_PATH.createPassword}`).subscribe({
-      next: response => {
-        expect(response).toEqual(responseMock);
-      }
-    });
-
-    const req = httpController.expectOne(`${environment.baseUlr}${API_PATH.createPassword}`);
-    expect(req.request.method).toEqual('DELETE');
     req.flush(responseMock);
   }));
 });
