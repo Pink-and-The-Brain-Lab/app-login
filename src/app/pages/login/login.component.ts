@@ -49,7 +49,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   changeLanguage(language: ILanguageOption) {
     this.translateService.use(language.value);
     this.localStorageManager.set<string>('selectedLaguage', language.value);
-    this.selectedOption = language
     this.selectedOption = this.translateSelectedOption(language);
   }
 
