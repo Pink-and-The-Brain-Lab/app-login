@@ -3,7 +3,7 @@ import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/fo
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { ISignin } from './models/sign-in.interface';
-import { LocalStorageManager } from 'millez-components-lib/components';
+import { LocalStorageManager, Storage } from 'millez-web-components/dist/components';
 import { IUser } from './models/user.interface';
 import { HandleError } from 'src/app/commons/handle-error/handle-error';
 import { GenericCRUDService } from 'src/app/commons/services/generic-crud.service';
@@ -63,9 +63,9 @@ export class SignInPasswordComponent extends HandleError implements OnDestroy {
       .subscribe({
         next: _response => {
           this.isLoading = false;
-          this.localStorageManager.set<string>('token', _response.token);
-          this.localStorageManager.set<IUser>('user', _response.user);
-          this.localStorageManager.set<boolean>('stay logged in', !!this.form.get('stayLoggedIn')?.value);
+          this.localStorageManager.set<string>(Storage.TOKEN, _response.token);
+          this.localStorageManager.set<IUser>(Storage.USER, _response.user);
+          this.localStorageManager.set<boolean>(Storage.STAY_LOGGED_IN, !!this.form.get('stayLoggedIn')?.value);
           if (fromTest) return;
           window.location.replace('');
         },

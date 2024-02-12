@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LoginComponent } from './login.component';
-import { ILanguageOption, LocalStorageManager, LogoModule } from 'millez-components-lib/components';
+import { ILanguageOption, LocalStorageManager, LogoModule } from 'millez-web-components/dist/components';
 import { RouterModule } from '@angular/router';
 import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
 

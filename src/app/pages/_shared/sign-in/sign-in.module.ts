@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { SignInComponent } from './sign-in.component';
 import { SigninRoutingModule } from './sign-in-routing';
 import { ButtonModule } from 'src/app/components/button/button.module';
-import { InputValidationModule } from 'millez-components-lib/components';
+import { InputValidationModule } from 'millez-web-components/dist/components';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 

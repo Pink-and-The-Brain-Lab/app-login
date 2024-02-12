@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { SignUpComponent } from './sign-up.component';
 import { SignupRoutingModule } from './sign-up-routing';
 import { ButtonModule } from 'src/app/components/button/button.module';
-import { CheckboxModule, CreatePasswordModule, InputValidationModule, LoadingButtonModule, SpinnerModule } from 'millez-components-lib/components';
+import { CheckboxModule, CreatePasswordModule, InputValidationModule, LoadingButtonModule, SpinnerModule } from 'millez-web-components/dist/components';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
 

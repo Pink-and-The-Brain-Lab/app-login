@@ -1,6 +1,6 @@
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { SignUpCodeValidationComponent } from './sign-up-code-validation.component';
-import { CodeValidationModule } from 'millez-components-lib/components';
+import { CodeValidationModule } from 'millez-web-components/dist/components';
 import { SignUpCodeValidationIllustrationModule } from 'src/app/illustrations/sign-up-code-validation-illustration/sign-up-code-validation-illustration.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrService } from 'ngx-toastr';

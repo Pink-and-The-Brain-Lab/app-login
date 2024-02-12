@@ -1,7 +1,7 @@
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { SignInPasswordComponent } from './sign-in-password.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { InputValidationModule, LoadingButtonModule, SpinnerModule, CheckboxModule } from 'millez-components-lib/components';
+import { InputValidationModule, LoadingButtonModule, SpinnerModule, CheckboxModule } from 'millez-web-components/dist/components';
 import { ButtonModule } from 'src/app/components/button/button.module';
 import { PassworIllustrationdModule } from 'src/app/illustrations/password-illustration/password-illustration.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';

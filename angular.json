@@ -27,11 +27,11 @@
             "styles": [
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
               "./node_modules/bootstrap-icons/font/bootstrap-icons.css",
-              "./node_modules/millez-components-lib/assets/styles.css",
+              "./node_modules/millez-web-components/dist/assets/styles.css",
               "./src/styles.scss"
             ],
             "stylePreprocessorOptions": {
-              "includePaths": ["node_modules/millez-components-lib/assets/"]
+              "includePaths": ["node_modules/millez-web-components/dist/assets/"]
             },
             "scripts": [],
             "extraWebpackConfig": "webpack.config.js",
@@ -117,7 +117,7 @@
             "styles": ["src/styles.scss"],
             "codeCoverage": true,
             "stylePreprocessorOptions": {
-              "includePaths": ["node_modules/millez-components-lib/assets/"]
+              "includePaths": ["node_modules/millez-web-components/dist/assets/"]
             },
             "scripts": [],
             "karmaConfig": "karma.conf.js"

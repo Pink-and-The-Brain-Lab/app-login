@@ -1,7 +1,7 @@
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { ResetPasswordCodeValidationComponent } from './reset-password-code-validation.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { LoadingButtonModule, SpinnerModule, CodeValidationModule } from 'millez-components-lib/components';
+import { LoadingButtonModule, SpinnerModule, CodeValidationModule } from 'millez-web-components/dist/components';
 import { ButtonModule } from 'src/app/components/button/button.module';
 import { ResetPasswordCodeValidationIllustrationModule } from 'src/app/illustrations/reset-password-code-validation-illustration/reset-password-code-validation-illustration.module';
 import { Router } from '@angular/router';

@@ -3,7 +3,7 @@ import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/fo
 import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { ISignup } from './models/signup.interface';
-import { IPasswordEvent } from 'millez-components-lib/components/lib/create-password/models/password-event';
+import { IPasswordEvent } from 'millez-web-components/dist/components/lib/create-password/models/password-event';
 import { HandleError } from 'src/app/commons/handle-error/handle-error';
 import { GenericCRUDService } from 'src/app/commons/services/generic-crud.service';
 import { API_PATH } from 'src/app/constants/api-path';

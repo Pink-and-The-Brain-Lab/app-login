@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SignInComponent } from './sign-in.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { InputValidationModule, LoadingButtonModule, SpinnerModule } from 'millez-components-lib/components';
+import { InputValidationModule, LoadingButtonModule, SpinnerModule } from 'millez-web-components/dist/components';
 import { ButtonModule } from 'src/app/components/button/button.module';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';

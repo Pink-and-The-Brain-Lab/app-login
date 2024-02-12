@@ -4,7 +4,7 @@ import { ResetPasswordCodeValidationComponent } from './reset-password-code-vali
 import { ResetPasswordCodeValidationRoutingModule } from './reset-password-code-validation-routing';
 import { ResetPasswordCodeValidationIllustrationModule } from 'src/app/illustrations/reset-password-code-validation-illustration/reset-password-code-validation-illustration.module';
 import { ButtonModule } from 'src/app/components/button/button.module';
-import { CodeValidationModule, LoadingButtonModule, SpinnerModule } from 'millez-components-lib/components';
+import { CodeValidationModule, LoadingButtonModule, SpinnerModule } from 'millez-web-components/dist/components';
 import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
 
 @NgModule({

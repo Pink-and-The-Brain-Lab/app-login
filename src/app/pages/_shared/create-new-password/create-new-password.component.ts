@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnDestroy, ViewChild, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IPasswordEvent } from 'millez-components-lib/components/lib/create-password/models/password-event';
+import { IPasswordEvent } from 'millez-web-components/dist/components/lib/create-password/models/password-event';
 import { Subject, takeUntil } from 'rxjs';
 import { IResetInterface } from './models/reset-password.interface';
 import { HandleError } from 'src/app/commons/handle-error/handle-error';
