@@ -55,8 +55,8 @@ describe('LoginComponent', () => {
 
   it('should get language options', () => {
     spyOn(localStorageManager, 'get')
-      .withArgs('languageOptions').and.returnValue(LANGUAGE_OPTIONS)
-      .withArgs('selectedLaguage').and.returnValue('en');
+      .withArgs('LANGUAGE_OPTIONS').and.returnValue(LANGUAGE_OPTIONS)
+      .withArgs('SELECTED_LAGUAGE').and.returnValue('en');
     component.ngOnInit();
     expect(component.languageOptions.length).toBe(4);
     expect(component.languageOptions[0].value).toBe('en');
@@ -64,8 +64,8 @@ describe('LoginComponent', () => {
 
   it('should get selected language and set english as a default', () => {
     spyOn(localStorageManager, 'get')
-      .withArgs('languageOptions').and.returnValue(LANGUAGE_OPTIONS)
-      .withArgs('selectedLaguage').and.returnValue('');
+      .withArgs('LANGUAGE_OPTIONS').and.returnValue(LANGUAGE_OPTIONS)
+      .withArgs('SELECTED_LAGUAGE').and.returnValue('');
     component.languageOptions = LANGUAGE_OPTIONS;
     component['getSelectedLanguage']();
     expect(component.selectedOption?.value).toBe('en');
@@ -73,8 +73,8 @@ describe('LoginComponent', () => {
 
   it('should get selected language and set portuguese as a default', () => {
     spyOn(localStorageManager, 'get')
-      .withArgs('languageOptions').and.returnValue(LANGUAGE_OPTIONS)
-      .withArgs('selectedLaguage').and.returnValue('pt');
+      .withArgs('LANGUAGE_OPTIONS').and.returnValue(LANGUAGE_OPTIONS)
+      .withArgs('SELECTED_LAGUAGE').and.returnValue('pt');
     component.languageOptions = LANGUAGE_OPTIONS;
     component['getSelectedLanguage']();
     expect(component.selectedOption?.value).toBe('pt');
@@ -83,7 +83,7 @@ describe('LoginComponent', () => {
   it('should change language to spanish', () => {
     const spy = spyOn(localStorageManager, 'set');
     component.changeLanguage(LANGUAGE_OPTIONS[2]);
-    expect(spy).toHaveBeenCalledWith('selectedLaguage', LANGUAGE_OPTIONS[2].value);
+    expect(spy).toHaveBeenCalledWith('SELECTED_LAGUAGE', LANGUAGE_OPTIONS[2].value);
   });
 
   it('should translate laguage option label', () => {
