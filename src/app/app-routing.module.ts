@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [{
   path: '',
-  loadChildren: async () => (await import('./pages/login/login.module')).LoginModule
+  loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule)
 }];
 
 @NgModule({
