@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
-import { ILanguageOption, LocalStorageManager, Storage } from 'millez-web-components/dist/components';
+import { Store } from '@ngxs/store';
+import { DashboardVisualizationControlAction, ILanguageOption, LocalStorageManager, Storage } from 'millez-web-components/dist/components';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({
@@ -16,8 +17,10 @@ export class LoginComponent implements OnInit, OnDestroy {
   private readonly localStorageManager = inject(LocalStorageManager);
   private readonly translateService = inject(TranslateService);
   private readonly translatePipe = inject(TranslatePipe);
+  private readonly store = inject(Store);
 
   ngOnInit(): void {
+    this.store.dispatch( new DashboardVisualizationControlAction({ showDashboard: false }) );
     this.languageOptions = this.localStorageManager.get<ILanguageOption[]>(Storage.LANGUAGE_OPTIONS) || [];
     this.getSelectedLanguage();
     this.translateService.onLangChange
