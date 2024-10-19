@@ -5,6 +5,8 @@ import { AppComponent } from './app.component';
 import { LoginRoutingModule } from './pages/login/login-routing.module';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxsModule } from '@ngxs/store';
+import { DashboardVisualizationControlState } from 'millez-web-components/dist/components';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 			preventDuplicates: true,
 			progressBar: true
 		}),
+    NgxsModule.forRoot([
+      DashboardVisualizationControlState,
+    ]),
   ],
   bootstrap: [AppComponent]
 })
