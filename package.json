@@ -30,7 +30,7 @@
     "bootstrap-icons": "1.10.3",
     "google-libphonenumber": "3.2.30",
     "millez-web-components": "0.0.19",
-    "ng2-tooltip-directive": "2.10.3",
+    "ng2-tooltip-directive": "^2.10.3",
     "ngx-image-cropper": "7.0.1",
     "ngx-toastr": "17.0.2",
     "rxjs": "7.8.0",
@@ -50,6 +50,6 @@
     "karma-jasmine": "5.1.0",
     "karma-jasmine-html-reporter": "2.0.0",
     "ngx-build-plus": "15.0.0",
-    "typescript": "4.8.4"
+    "typescript": "5.0.0"
   }
 }
