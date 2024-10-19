@@ -1,6 +1,5 @@
 import { Component, OnDestroy, inject } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
-import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HandleError } from 'src/app/commons/handle-error/handle-error';
 import { GenericCRUDService } from 'src/app/commons/services/generic-crud.service';
