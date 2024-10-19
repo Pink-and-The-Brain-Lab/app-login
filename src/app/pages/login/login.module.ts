@@ -4,7 +4,7 @@ import { LoginComponent } from './login.component';
 import { LoginRoutingModule } from './login-routing.module';
 import { CustomSelectModule, DashboardVisualizationControlState, I18N_CONFIG, LogoModule } from 'millez-web-components/dist/components';
 import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
-import { NgxsModule, Store } from '@ngxs/store';
+import { NgxsModule, provideStore } from '@ngxs/store';
 
 @NgModule({
   declarations: [
@@ -22,7 +22,7 @@ import { NgxsModule, Store } from '@ngxs/store';
   ],
   providers: [
     TranslatePipe,
-    Store,
+    provideStore()
   ]
 })
 export class LoginModule { }
