@@ -2,7 +2,7 @@ import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { CreateNewPasswordComponent } from './create-new-password.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ToastrService } from 'ngx-toastr';
 import { RouterTestingModule } from "@angular/router/testing";
 import { CreatePasswordModule, InputValidationModule, LoadingButtonModule, SpinnerModule } from 'millez-web-components/dist/components';
@@ -14,6 +14,7 @@ import SUBSCRIBE_RETURN_MOCK from 'src/app/mocks/subscribe-method.test.mock';
 import { CreateNewPasswordIllustrationModule } from 'src/app/illustrations/create-new-password-illustration/create-new-password-illustration.module';
 import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
 import { GenericCRUDService } from 'src/app/commons/services/generic-crud.service';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('CreateNewPasswordComponent', () => {
   let component: CreateNewPasswordComponent;
@@ -23,26 +24,25 @@ describe('CreateNewPasswordComponent', () => {
   beforeEach(async () => {
     const spy = jasmine.createSpyObj('GenericCRUDService', ['genericPost']);
     await TestBed.configureTestingModule({
-      declarations: [ CreateNewPasswordComponent ],
-      imports: [
-        CreateNewPasswordIllustrationModule,
+    declarations: [CreateNewPasswordComponent],
+    imports: [CreateNewPasswordIllustrationModule,
         FormsModule,
         ReactiveFormsModule,
         NoopAnimationsModule,
-        HttpClientTestingModule,
         RouterTestingModule.withRoutes([]),
         InputValidationModule,
         LoadingButtonModule,
         SpinnerModule,
         CreatePasswordModule,
-        TranslateModule.forRoot(),
-      ],
-      providers: [
+        TranslateModule.forRoot()],
+    providers: [
         TranslatePipe,
         { provide: ToastrService, useValue: TOASTR_SERVICE_MOCK },
         { provide: GenericCRUDService, useValue: spy },
-      ]
-    })
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+    ]
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(CreateNewPasswordComponent);

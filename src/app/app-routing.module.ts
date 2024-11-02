@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -7,11 +7,5 @@ const routes: Routes = [{
   loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule)
 }];
 
-@NgModule({
-  imports: [
-    RouterModule.forRoot(routes),
-    HttpClientModule,
-  ],
-  exports: [RouterModule]
-})
+@NgModule({ exports: [RouterModule], imports: [RouterModule.forRoot(routes)], providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class AppRoutingModule { }

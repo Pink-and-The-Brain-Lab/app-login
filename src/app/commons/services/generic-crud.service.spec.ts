@@ -1,9 +1,10 @@
 import { TestBed, fakeAsync } from '@angular/core/testing';
 import { GenericCRUDService } from './generic-crud.service';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { IDefaultResponse } from '../models/default-response.interface';
 import { environment } from 'src/environments/environment';
 import { API_PATH } from 'src/app/constants/api-path';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('GenericCRUDService', () => {
   let service: GenericCRUDService;
@@ -11,13 +12,13 @@ describe('GenericCRUDService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule,
-      ],
-      providers: [
+    imports: [],
+    providers: [
         GenericCRUDService,
-      ]
-    });
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+    ]
+});
     service = TestBed.inject(GenericCRUDService);
     httpController = TestBed.inject(HttpTestingController);
   });
