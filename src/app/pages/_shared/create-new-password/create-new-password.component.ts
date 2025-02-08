@@ -9,9 +9,10 @@ import { API_PATH } from 'src/app/constants/api-path';
 import { IDefaultResponse } from 'src/app/commons/models/default-response.interface';
 
 @Component({
-  selector: 'app-create-new-password',
-  templateUrl: './create-new-password.component.html',
-  styleUrls: ['./create-new-password.component.scss']
+    selector: 'app-create-new-password',
+    templateUrl: './create-new-password.component.html',
+    styleUrls: ['./create-new-password.component.scss'],
+    standalone: false
 })
 export class CreateNewPasswordComponent extends HandleError implements OnDestroy {
 

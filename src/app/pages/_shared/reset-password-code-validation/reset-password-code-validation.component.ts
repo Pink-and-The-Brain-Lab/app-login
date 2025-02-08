@@ -8,9 +8,10 @@ import { API_PATH } from 'src/app/constants/api-path';
 import { ITokenValidation } from './models/token-validation.interface';
 
 @Component({
-  selector: 'app-reset-password-code-validation',
-  templateUrl: './reset-password-code-validation.component.html',
-  styleUrls: ['./reset-password-code-validation.component.scss']
+    selector: 'app-reset-password-code-validation',
+    templateUrl: './reset-password-code-validation.component.html',
+    styleUrls: ['./reset-password-code-validation.component.scss'],
+    standalone: false
 })
 export class ResetPasswordCodeValidationComponent extends HandleError implements OnDestroy {
 

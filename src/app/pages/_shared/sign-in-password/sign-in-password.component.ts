@@ -12,9 +12,10 @@ import { API_PATH } from 'src/app/constants/api-path';
 import { InputType } from 'src/app/commons/models/input-type';
 
 @Component({
-  selector: 'app-sign-in-password',
-  templateUrl: './sign-in-password.component.html',
-  styleUrls: ['./sign-in-password.component.scss']
+    selector: 'app-sign-in-password',
+    templateUrl: './sign-in-password.component.html',
+    styleUrls: ['./sign-in-password.component.scss'],
+    standalone: false
 })
 export class SignInPasswordComponent extends HandleError implements OnDestroy {
 

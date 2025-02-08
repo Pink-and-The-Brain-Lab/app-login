@@ -9,9 +9,10 @@ import { GenericCRUDService } from 'src/app/commons/services/generic-crud.servic
 import { API_PATH } from 'src/app/constants/api-path';
 
 @Component({
-  selector: 'app-sign-up',
-  templateUrl: './sign-up.component.html',
-  styleUrls: ['./sign-up.component.scss']
+    selector: 'app-sign-up',
+    templateUrl: './sign-up.component.html',
+    styleUrls: ['./sign-up.component.scss'],
+    standalone: false
 })
 export class SignUpComponent extends HandleError implements OnDestroy {
 

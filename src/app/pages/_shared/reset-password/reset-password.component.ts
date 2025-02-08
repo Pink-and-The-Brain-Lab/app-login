@@ -9,9 +9,10 @@ import { API_PATH } from 'src/app/constants/api-path';
 import { IEmail } from './models/email.interface';
 
 @Component({
-  selector: 'app-reset-password',
-  templateUrl: './reset-password.component.html',
-  styleUrls: ['./reset-password.component.scss']
+    selector: 'app-reset-password',
+    templateUrl: './reset-password.component.html',
+    styleUrls: ['./reset-password.component.scss'],
+    standalone: false
 })
 export class ResetPasswordComponent extends HandleError implements OnDestroy {
 
