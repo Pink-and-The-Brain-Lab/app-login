@@ -38,7 +38,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "19.1.6",
-    "@angular/cli": "18.2.11",
+    "@angular/cli": "19.1.6",
     "@angular/compiler-cli": "19.1.5",
     "@types/google-libphonenumber": "7.4.23",
     "@types/jasmine": "4.3.0",
