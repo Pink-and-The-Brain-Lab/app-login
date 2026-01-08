@@ -22,7 +22,7 @@
       "ES2022",
       "dom"
     ],
-    "types": ["node"]
+    "types": ["node", "mocha"]
   },
   "include": [
     "**/*.ts"

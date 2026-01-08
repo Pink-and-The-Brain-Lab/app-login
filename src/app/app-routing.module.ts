@@ -7,5 +7,15 @@ const routes: Routes = [{
   loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule)
 }];
 
-@NgModule({ exports: [RouterModule], imports: [RouterModule.forRoot(routes)], providers: [provideHttpClient(withInterceptorsFromDi())] })
+@NgModule({
+  exports: [
+    RouterModule
+  ],
+  imports: [
+    RouterModule.forRoot(routes)
+  ],
+  providers: [
+    provideHttpClient(withInterceptorsFromDi())
+  ]
+})
 export class AppRoutingModule { }
